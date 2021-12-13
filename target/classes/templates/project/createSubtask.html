@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <title>Create Subtask</title>
+</head>
+<!--
+<style>
+    #Tables {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    #Tables td, #Tables th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #Tables tr:nth-child(even){background-color: #f2f2f2;}
+
+    #Tables tr:hover {background-color: #ddd;}
+
+    #Tables th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #35455D;
+        color: white;
+    }
+</style>
+-->
+
+<th:block th:include="/Fragment/headerLoggedInFragment :: header"></th:block>
+<body>
+<center>
+    <h4>Welcome <p th:text="${userName}"></p> <br>Here are your subtasks!<br> </h4>
+    <form action="/createTask" method="get">
+        <button type="submit" >Back to Tasks</button>
+    </form>
+
+    <table id="Tables" >
+        <tr>
+            <th>Subtask Number:</th>
+            <th>Subtask Name</th>
+            <th>Cost</th>
+            <th>Billable hours???</th>
+            <th></th>
+        </tr>
+        <tr>
+            <form action="/createSubtaskParam" method="post">
+                <td></td>
+                <td><input type="text" name="subtaskName" required></td>
+                <td><input type="number" name="cost" min="0" max="1000000000" required></td>
+                <td><input type="number" name="hours" min="0" max="1000000000" required></td>
+                <td><input type="submit" class="like" value="Add Subtask"></td>
+            </form>
+        </tr>
+
+        <tr id="tr1" th:border="1" th:each="subtask : ${subtasks}">
+            <td></td>
+            <td th:text="${subtask.getSubtaskName()}"></td>
+            <td th:text="${#numbers.formatCurrency(subtask.getCost())}"></td>
+            <td th:text="${subtask.getHours()}"></td>
+            <td><form th:action="@{/removeSubtask/{id}(id=${subtask.getSubtaskName()})}" th:object="${subtask}">
+                <button type="submit">Remove subtask</button>
+            </form>
+            </td>
+        </tr>
+    </table>
+</center>
+</body>
+<div id="footerTabel" !important> <!--changes footer, so tabels are visable-->
+<th:block th:include="/Fragment/footerFragment :: footer"></th:block>
+</div>
+</html>

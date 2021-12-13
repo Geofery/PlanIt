@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="style.css"/>
+  <script src="javascript.js"></script>
+  <title>Login</title>
+
+
+</head>
+<th:block th:include="/Fragment/headerFragment :: header"></th:block>
+<body>
+
+
+<div id="container">
+
+  <div id="input-form">
+    <form action="/validateLogin" method="POST" >
+      <h2>Welcome to the PlanIt the project management tool</h2>
+      <br>
+      <label>Email: </label>
+      <br>
+      <input type="email" class="form-control" name="mail" required>
+      <br>
+      <label>Password: </label>
+      <br>
+      <input type="password" class="form-control" name="password" required>
+      <br>
+      <div class="button">
+        <br>
+        <input type="Submit" class="submit-button" value="  Log in!  ">
+      </div>
+    </form>
+
+    <p>
+      <a href="/registerUser">
+        <input type="Submit" class="submit-button" value="  Create new user  ">
+      </a>
+      <br>
+  </div>
+</div>
+
+<script>
+  setTimeout(function(){
+    alert('Wrong username or password!!!')}, 100);
+</script>
+</body>
+
+
+<th:block th:include="/Fragment/footerFragment :: footer"></th:block>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="javascript.js"></script>
+    <title>Index</title>
+</head>
+
+<th:block th:include="/Fragment/headerLoggedInFragment :: header"></th:block>
+
+<Body>
+<center>
+    <!--
+    <style>
+        #Tables {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #Tables td, #Tables th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #Tables tr:nth-child(even){background-color: #f2f2f2;}
+
+        #Tables tr:hover {background-color: #ddd;}
+
+        #Tables th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #35455D;
+            color: white;
+        }
+    </style>
+-->
+
+
+
+
+    <h4>Welcome <p th:text="${userName}"></p> <br>Here are your projects!<br> </h4>
+    <form action="/projectOverview" method="get">
+        <button type="submit" >Project Overview</button>
+    </form>
+
+<table id="Tables" >
+    <tr>
+        <th>Project Number:</th>
+        <th>Project Name</th>
+        <th>Start</th>
+        <th>Finish</th>
+        <th>Budget</th>
+        <th>Remaining budget</th>
+        <th>Billable hours</th>
+        <th>Update project</th>
+        <th>Delete</th>
+    </tr>
+    <tr>
+        <form action="/createProject" method="post" onsubmit="return change()">
+            <td></td>
+            <td><input type="text" name="name" required></td>
+            <td><input type="date" name="start" id="ed_starttimedate" required ></td>
+            <td><input type="date" name="finish"  id="ed_endtimedate" ></td>
+            <td><input type="text" name="budget" required></td>
+            <td></td>
+            <td></td>
+            <td><input type="submit" class="like" value="Add Project"></td>
+            <td><input type="reset" class="like" value="Reset"></td>
+        </form>
+    </tr>
+
+    <tr id="tr1" th:border="1" th:each="project : ${projects}">
+        <td></td>
+        <td th:text="${project.getName()}"></td>
+        <td th:text="${project.getStart()}"></td>
+        <td th:text="${project.getFinish()}"></td>
+        <td th:text="${#numbers.formatCurrency(project.getBudget())}"></td>
+        <td th:text="${#numbers.formatCurrency(project.getBudget() - project.getCost())}"></td>
+        <td th:text="${project.getHours()}"></td>
+        <td><form th:action="@{/update/{id}(id=${project.getName()})}" th:object="${project}">
+            <button type="submit">Update project</button>
+        </form>
+        </td>
+        <td><form th:action="@{/removeProject/{id}(id=${project.getName()})}" th:object="${project}">
+        <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+</table>
+</center>
+</body>
+
+
+<!--This function prevents adding projects with enddate before startdate, but throws a MysqlDataTruncation exception
+ due to the form is still submitted. The function does was it is supposed to do, but should we catch the exception???
+ The function is called on line 27 in the form.
+ -->
+<script>
+    function change() {
+        var startDate = document.getElementById("ed_starttimedate").value;
+        var endDate = document.getElementById("ed_endtimedate").value;
+
+        if ((Date.parse(endDate) <= Date.parse(startDate))) {
+            alert("End date should be greater than Start date");
+            document.getElementById("ed_endtimedate").value = "";
+        }
+    };
+</script>
+
+</div>
+<div id="footerTabel" !important> <!--changes footer, so tabels are visable-->
+    <th:block th:include="/Fragment/footerFragment :: footer"></th:block>
+</div>
+</html>

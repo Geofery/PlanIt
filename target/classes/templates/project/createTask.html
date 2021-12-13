@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <title>Create Task</title>
+</head>
+
+<!--
+<style>
+    #Tables {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    #Tables td, #Tables th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #Tables tr:nth-child(even){background-color: #f2f2f2;}
+
+    #Tables tr:hover {background-color: #ddd;}
+
+    #Tables th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #35455D;
+        color: white;
+    }
+</style>
+-->
+
+<th:block th:include="/Fragment/headerLoggedInFragment :: header"></th:block>
+<body>
+<center>
+        <h4>Welcome <p th:text="${userName}"></p> <br>Here are your Tasks!<br> </h4>
+    <form action="/myProjects" method="get">
+        <button type="submit" >Back to Projects</button>
+    </form>
+
+<table id="Tables">
+    <tr>
+        <th>Task Number:</th>
+        <th>Task Name</th>
+        <th>Start</th>
+        <th>Finish</th>
+        <th>Cost</th>
+        <th>Billable hours???</th>
+        <th>Update task</th>
+        <th>Delete</th>
+    </tr>
+    <tr>
+        <form action="/createTaskParam" method="post" onsubmit="return change()">
+            <td></td>
+            <td><input type="text" name="taskName" required></td>
+            <td><input type="date" name="startDate" id="ed_starttimedate" required></td>
+            <td><input type="date" name="finishDate" id="ed_endtimedate" required></td>
+            <td></td>
+            <td></td>
+            <td><input type="submit" class="like" value="Add Task"></td>
+            <td><input type="reset" class="like" value="Reset"></td>
+        </form>
+    </tr>
+
+    <tr id="tr1" th:border="1" th:each="task : ${tasks}">
+        <td></td>
+        <td th:text="${task.getTaskName()}"></td>
+        <td th:text="${task.getStartDate()}"></td>
+        <td th:text="${task.getFinishDate()}"></td>
+        <td th:text="${#numbers.formatCurrency(task.getCost())}"></td>
+        <td th:text="${task.getHours()}"></td>
+        <td><form th:action="@{/rerun/{id}(id=${task.getTaskName()})}" th:object="${task}">
+            <button type="submit">Add subtask</button>
+           <!-- <input type="hidden" name="project_id" th:value="${project.getName()}"> -->
+        </form>
+        </td>
+        <td><form th:action="@{/removeTask/{id}(id=${task.getTaskName()})}" th:object="${task}">
+            <button type="submit">Delete</button>
+        </form>
+        </td>
+    </tr>
+</table>
+</center>
+</body>
+
+<!--This function prevents adding projects with enddate before startdate, but throws a MysqlDataTruncation exception
+ due to the form is still submitted. The function does was it is supposed to do, but should we catch the exception???
+ The function is called on line 27 in the form.
+ -->
+<script>
+    function change() {
+        var startDate = document.getElementById("ed_starttimedate").value;
+        var endDate = document.getElementById("ed_endtimedate").value;
+
+        if ((Date.parse(endDate) <= Date.parse(startDate))) {
+            alert("End date should be greater than Start date");
+            document.getElementById("ed_endtimedate").value = "";
+        }
+    };
+</script>
+
+<div id="footerTabel" !important> <!--changes footer, so tabels are visable-->
+    <th:block th:include="/Fragment/footerFragment :: footer"></th:block>
+</div>
+</html>
