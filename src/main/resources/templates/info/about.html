@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="javascript.js"></script>
+    <title>About</title>
+</head>
+<th:block th:include="/Fragment/headerFragment :: header"></th:block>
+<Body>
+<div id="container">
+    <div id="input-form">
+        <p style="text-align:center">
+            About us
+            <br>
+            <br>
+            We are three computer scientist students and also dads.<br>
+            Jeffrey a backend specialist who have two daughters<br>
+            Jeppe a fullstack developer who has a boy<br>
+            Christopher a Designer who has two boys.<br>
+
+            We have been assigned a task to create a project calculation and management tool,
+            that can give a better overview and understanding, of the timeframe and cost of a big project.
+            By breaking it down to task and subtasks.
+        </p>
+</div>
+</div>
+</body>
+
+<div id="footer">
+    <th:block th:include="/Fragment/footerFragment :: footer"></th:block>
+</div>
+</html>

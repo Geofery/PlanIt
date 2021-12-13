@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <script src="javascript.js"></script>
+    <title>Login</title>
+</head>
+<th:block th:include="/Fragment/headerFragment :: header"></th:block>
+<body>
+
+<div id="container">
+    <div id="input-form">
+<h2>>>Error Page<<</h2>
+<br>
+<h2>We are sorry, but an error occured with this message:</h2>
+<h3><span><p th:text="${exMessage}"></p></span></h3>
+<br>
+<br>
+    <form action="/" method="get">
+        <button type="submit" >Back to frontpage</button>
+    </form>
+        </div>
+</div>
+
+
+</body>
+<div id="footer">
+<th:block th:include="/Fragment/footerFragment :: footer"></th:block>
+</div>
+</html>

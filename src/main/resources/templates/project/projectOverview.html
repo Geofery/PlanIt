@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="javascript.js"></script>
+    <title>Index</title>
+</head>
+
+<th:block th:include="/Fragment/headerLoggedInFragment :: header"></th:block>
+
+<body>
+<center>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<h4>Welcome <p th:text="${user.getName()}"></p> <br>Here are your projects!<br> </h4>
+<form action="/myProjects" method="get">
+    <button type="submit" >Project Update</button>
+    <br>
+    <br>
+</form>
+
+
+<!-- loop 1 Projects  -->
+<div th:border="1" th:each="project, i : ${user.getProjects()}">
+    <form  method="post" onclick="return func()">
+        <button type="button" class="collapsible"><p th:text="${project.getName()}"></p></button>
+        <div class="content">
+            <table style = "margin-top: 20px;">
+                <tr>
+                    <th>Start</th>
+                    <th>Finish</th>
+                    <th>Budget</th>
+                    <th>Remaining budget</th>
+                    <th>Billable hours</th>
+                </tr>
+                <tr >
+            <td th:text="${user.getProjects().get(i.index).getStart()}"></td>
+            <td th:text="${user.getProjects().get(i.index).getFinish()}"></td>
+            <td th:text="${#numbers.formatCurrency(user.getProjects().get(i.index).getBudget())}"></td>
+            <td th:text="${#numbers.formatCurrency(user.getProjects().get(i.index).getBudget() - user.getProjects().get(i.index).getCost())}"></td>
+            <td th:text="${user.getProjects().get(i.index).getHours()}"></td>
+                </tr>
+            </table>
+            <br>
+
+
+            <!-- loop 2 Tasks-->
+            <div  th:border="1" th:each="task, j : ${user.getProjects().get(i.index).getTasks()}">
+                <form  method="post" onsclick="return func()">
+                    <button  type="button" class="collapsible task"><p th:text="${user.getProjects().get(i.index).getTasks().get(j.index).getTaskName()}"></p></button>
+                    <div class="content">
+                        <table style = "margin-top: 20px;">
+                            <tr>
+                                <th>Start</th>
+                                <th>Finish</th>
+                                <th>Cost</th>
+                                <th>Billable hours</th>
+                            </tr>
+                            <tr>
+                                <td th:text="${user.getProjects().get(i.index).getTasks().get(j.index).getStartDate()}"></td>
+                                <td th:text="${user.getProjects().get(i.index).getTasks().get(j.index).getFinishDate()}"></td>
+                                <td th:text="${#numbers.formatCurrency(user.getProjects().get(i.index).getTasks().get(j.index).getCost())}"></td>
+                                <td th:text="${user.getProjects().get(i.index).getTasks().get(j.index).getHours()}"></td>
+                            </tr>
+                        </table>
+                        <br>
+                        <!-- loop 3 Subtasks-->
+                        <div th:border="1" th:each="subtask, n : ${user.getProjects().get(i.index).getTasks().get(j.index).getSubtasks()}">
+                            <form  method="post" onsclick="return func()">
+                                <button type="button" class="collapsible subtask"><p th:text="${user.getProjects().get(i.index).getTasks().get(j.index).getSubtasks().get(n.index).getSubtaskName()}"></p></button>
+                                <div class="content">
+                                    <table style = "margin-top: 20px;">
+                                        <tr>
+                                            <th>Cost</th>
+                                            <th>Billable hours???</th>
+                                        </tr>
+                                        <tr>
+                                            <td th:text="${#numbers.formatCurrency(user.getProjects().get(i.index).getTasks().get(j.index).getSubtasks().get(n.index).getCost())}"></td>
+                                            <td th:text="${user.getProjects().get(i.index).getTasks().get(j.index).getSubtasks().get(n.index).getHours()}"></td>
+                                        </tr>
+                                    </table>
+                                    <br>
+                                </div></form></div></div></form></div></div></form></div>
+
+
+
+<script>
+    function func() {
+
+
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+    }
+</script>
+
+</center>
+</body>
+</div>
+<div id="footerTabel" !important> <!--changes footer, so tabels are visable-->
+    <th:block th:include="/Fragment/footerFragment :: footer"></th:block>
+</div>
+</html>
