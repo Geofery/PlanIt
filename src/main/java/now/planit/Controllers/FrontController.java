@@ -8,9 +8,9 @@ public class FrontController {
 
   @GetMapping("/")
   public String index(HttpSession session) {
-    if (session.getAttribute("user")!= null){
+    /*if (session.getAttribute("user")!= null){
       return "redirect:/myProjects";
-    }
+    }*/
     return "index";
   }
 
