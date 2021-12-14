@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="@planit.c1uovhpg5oeg.eu-west-2.rds.amazonaws.com" uuid="b84c664e-985e-4545-80f4-76f45a6e0064">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://planit.c1uovhpg5oeg.eu-west-2.rds.amazonaws.com:3306/</jdbc-url>
+      <jdbc-additional-properties>
+        <property name="AWS.RdsSigningPort" value="3306" />
+        <property name="AWS.RegionId" value="eu-west-2" />
+        <property name="AWS.CredentialId" value="profile:default" />
+        <property name="AWS.RdsSigningHost" value="planit.c1uovhpg5oeg.eu-west-2.rds.amazonaws.com" />
+      </jdbc-additional-properties>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+  </component>
+</project>
