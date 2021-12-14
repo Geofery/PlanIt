@@ -2,7 +2,8 @@ package now.planit.Controllers;
 import org.springframework.web.bind.annotation.GetMapping;
 import javax.servlet.http.HttpSession;
 
-@org.springframework.stereotype.Controller
+//@org.springframework.stereotype.Controller
+@Controller
 public class FrontController {
 
 
