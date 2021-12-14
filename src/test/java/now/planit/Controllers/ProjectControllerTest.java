@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author roed
  */
 class ProjectControllerTest {
-/*
+
   @Test
   void myProjects() {
   }
@@ -24,4 +24,4 @@ class ProjectControllerTest {
   @Test
   void updateProjects() {
   }
-*/}
+}
