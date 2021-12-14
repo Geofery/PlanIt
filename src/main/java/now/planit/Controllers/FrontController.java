@@ -3,18 +3,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import javax.servlet.http.HttpSession;
 
-//@org.springframework.stereotype.Controller
 @Controller
 public class FrontController {
 
 
-  @GetMapping("/")
+ /* @GetMapping("/")
   public String index(HttpSession session) {
     if (session.getAttribute("user")!= null){
       return "redirect:/myProjects";
     }
     return "index";
-  }
+  }*/
 
   @GetMapping("/login")
   public String login() {
