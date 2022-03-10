@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'PlanItnow'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_ABBCB061F1454C4C9B9C1CD64DEE7C5D }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DC213E2260E74399B1A3F5A260705D4C }}
           package: '*.jar'
